@@ -1,4 +1,4 @@
-package hardcodeshit;
+package com.hardcodeshit;
 
 import java.io.IOException;
 
