@@ -8,7 +8,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
-import core.Screenshot;
+import com.core.Screenshot;
 
 public class ClaimsResultsPage {
 

@@ -17,7 +17,7 @@
       <resource>
         <directory>src/main/resources</directory>
         <includes>
-          <include>*.xpi</include>
+          <include>*.xml</include>
         </includes>
       </resource>
     </resources>
@@ -65,8 +65,22 @@
     <extensions>
     </extensions>
   </build>
-  
-  
+  <!-- Will need to update this at a later date to zip all these up so the the XPIs are bundled with the JAR --> 
+  <assembly>
+    <id>build</id>
+    <formats>
+      <format>dir</format>
+    </formats>
+    <fileSets>
+      <fileSet>
+        <directory>tools/</directory>
+        <outputDirectory>/target/</outputDirectory>
+        <includes>
+          <include>*.xpi</include>
+        </includes>
+      </fileSet>
+    </fileSets>
+  </assembly>  
   
   <dependencies>
   	<dependency>

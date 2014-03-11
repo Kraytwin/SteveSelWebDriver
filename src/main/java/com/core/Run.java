@@ -1,6 +1,6 @@
 package com.core;
 
-import hardcodeshit.ClaimsResultsPage;
+import com.hardcodeshit.ClaimsResultsPage;
 
 import java.io.File;
 
@@ -12,15 +12,15 @@ public class Run {
   private static WebDriver driver;
   
   public static void main( String[ ] args ) {
-    
+    ConfigSettings config = ConfigSettings.getInstance( );
     driver = DriverHandler.getDriver( );
     
-    SiteList sites = new SiteList( new File( "/Users/stephenfallis/Desktop/sites.txt" ) );
+    SiteList sites = new SiteList( new File( config.getProperty( "FILE_SYSTEM.SITE_FILE_LOCATION" ) ) );
     SiteHandler sh;
     
     
     ClaimsResultsPage st = new ClaimsResultsPage( );
-    
+    st.setUp(driver);
     try {
       for ( String site : sites.getSiteList( ) ) {
         sh = new SiteHandler( site );

@@ -13,13 +13,13 @@ public class DriverHandler {
   private static WebDriver driver;
 
   public static WebDriver init( ) {
-    System.out.println( System
-        .getProperty( "/Users/stephenfallis/Library/Application\\ Support/Firefox/Profiles/qcb9xy5k.Selenium/" ) );
-
-    File firebug = new File( System.getProperty( "/Users/stephenfallis/work/eclipse-workspace/SeleniumWebDriver" )
-        + "/resources/firebug-1.12.7.xpi" );
-    File netExport = new File( System.getProperty( "/Users/stephenfallis/work/eclipse-workspace/SeleniumWebDriver" )
-        + "/resources/netExport-0.9b4.xpi" );
+    ConfigSettings config = ConfigSettings.getInstance( );
+    // TODO Need to add checks to make sure these files are exist.
+    File firebug = new File( "firebug-1.12.7.xpi" );
+    File netExport = new File( "netExport-0.9b4.xpi" );
+    String logDirString = config.getOSProperty( "FILE_SYSTEM.LOG_LOCATION" );
+    System.out.println( "Creating log directory for NetExport in: " + logDirString + "| Success: "
+        + makeLogDirectory( logDirString ) );
 
     FirefoxProfile profile = new FirefoxProfile( );
     try {
@@ -47,7 +47,7 @@ public class DriverHandler {
     profile.setPreference( "extensions.firebug.netexport.autoExportToFile", true );
     profile.setPreference( "extensions.firebug.netexport.Automation", true );
     profile.setPreference( "extensions.firebug.netexport.showPreview", false );
-    profile.setPreference( "extensions.firebug.netexport.defaultLogDir", "/Users/stephenfallis/Desktop/NetExportLog/" );
+    profile.setPreference( "extensions.firebug.netexport.defaultLogDir", logDirString );
 
     DesiredCapabilities capabilities = new DesiredCapabilities( );
     capabilities.setBrowserName( "firefox" );
@@ -65,10 +65,18 @@ public class DriverHandler {
       return DriverHandler.init( );
     }
   }
-  
+
   public static void closeDriver( ) {
     if ( driver != null ) {
       driver.close( );
     }
+  }
+
+  private static boolean makeLogDirectory( String logDirString ) {
+    File logDir = new File( logDirString );
+    if ( !logDir.exists( ) ) {
+      return logDir.mkdirs( );
+    }
+    return false;
   }
 }
