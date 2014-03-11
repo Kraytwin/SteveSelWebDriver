@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Selenium2</groupId>
-  <artifactId>Selenium2</artifactId>
+  <groupId>SeleniumWebDriver</groupId>
+  <artifactId>SeleniumWebDriver</artifactId>
   <packaging>jar</packaging>
   <version>0.0.1</version>
-  <name>Selenium2</name>
+  <name>SeleniumWebDriver</name>
   
   <build>
     <defaultGoal>package</defaultGoal>
@@ -20,6 +20,13 @@
           <include>*.xml</include>
         </includes>
       </resource>
+      <resource>
+        <directory>${basedir}/tools</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>*.xpi</include>
+        </includes>
+      </resource>
     </resources>
     <plugins>
       <plugin>
@@ -27,8 +34,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.4</version>
         <configuration> 
-          <source>1.5</source> 
-          <target>1.5</target> 
+          <source>1.6</source> 
+          <target>1.6</target> 
         </configuration>  
       </plugin>
       <plugin>
@@ -41,7 +48,7 @@
 	  </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2-beta-5</version>
+        <version>2.4</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -59,28 +66,35 @@
               <mainClass>com.core.Run</mainClass>
             </manifest>
           </archive>
+          <tasks>
+            <copy todir="target/lib" overwrite="true">
+              <fileset dir="tools/">
+                <include name="*.xpi"/>
+              </fileset>
+            </copy>
+          </tasks>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>com.core.Run</mainClass>
+            </manifest>
+            <manifestEntries>
+              <Class-Path>. lib</Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin> 
     </plugins>
     <extensions>
     </extensions>
-  </build>
-  <!-- Will need to update this at a later date to zip all these up so the the XPIs are bundled with the JAR --> 
-  <assembly>
-    <id>build</id>
-    <formats>
-      <format>dir</format>
-    </formats>
-    <fileSets>
-      <fileSet>
-        <directory>tools/</directory>
-        <outputDirectory>/target/</outputDirectory>
-        <includes>
-          <include>*.xpi</include>
-        </includes>
-      </fileSet>
-    </fileSets>
-  </assembly>  
+  </build>  
   
   <dependencies>
   	<dependency>
