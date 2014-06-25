@@ -149,7 +149,7 @@ public class ConfigSettings {
         System.out.println( "Config does not yet exist, saving locally." );
         config.saveConfig( currentConfigFile );
       } else {
-        System.out.println( "Already Exists" );
+        System.out.println( "Config already exists locally" );
       }
       config.loadConfig( currentConfigFile );
 

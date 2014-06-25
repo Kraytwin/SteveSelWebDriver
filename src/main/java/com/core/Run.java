@@ -1,10 +1,8 @@
 package com.core;
 
-import com.hardcodeshit.ClaimsResultsPage;
-
-import java.io.File;
-
 import org.openqa.selenium.WebDriver;
+
+import com.hardcodeshit.ClaimsResultsPage;
 
 
 public class Run {
@@ -15,7 +13,8 @@ public class Run {
     ConfigSettings config = ConfigSettings.getInstance( );
     driver = DriverHandler.getDriver( );
     
-    SiteList sites = new SiteList( new File( config.getProperty( "FILE_SYSTEM.SITE_FILE_LOCATION" ) ) );
+    //XXX Will need to add in code to deal with this file not existing.
+    /*SiteList sites = new SiteList( new File( config.getProperty( "FILE_SYSTEM.SITE_FILE_LOCATION" ) ) );
     SiteHandler sh;
     
     
@@ -35,6 +34,15 @@ public class Run {
           sh.stop( );
         }
       }
+    } catch ( Exception e ) {
+      e.printStackTrace();
+    }
+    DriverHandler.closeDriver( );*/
+    
+    ClaimsResultsPage st = new ClaimsResultsPage( );
+    st.setUp(driver);
+    try {
+      st.testNew( "test" );
     } catch ( Exception e ) {
       e.printStackTrace();
     }

@@ -27,8 +27,13 @@ public class Screenshot {
   }
 
   public void captureScreenshot( String page ) {
+    File directoryFile;
     try {
-      File directoryFile = new File( directory );
+      if( directory == null || directory.equals( "" ) ) {
+        directoryFile = new File(".");
+      } else {
+        directoryFile = new File( directory );        
+      }
         Thread.sleep( 500 );
         System.out.println( directoryFile.getAbsolutePath( ) );
         File source = ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);

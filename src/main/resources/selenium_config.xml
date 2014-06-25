@@ -3,7 +3,7 @@
   <!--Properties related to running Selenium, not currently used-->
   <ConfigGroup id="SELENIUM">
     <ConfigSetting id="JAR_LOCATION"><![CDATA[lib/]]></ConfigSetting>
-    <ConfigSetting id="JAR_NAME"><![CDATA[selenium-server-standalone-2.21.0.jar]]></ConfigSetting>
+    <ConfigSetting id="JAR_NAME"><![CDATA[selenium-server-standalone-2.40.0.jar]]></ConfigSetting>
     <ConfigSetting id="FIREFOX_PROFILE"><![CDATA[TRUE]]></ConfigSetting>
     <ConfigSetting id="FIREFOX_PROFILE_LOCATION"><![CDATA[~/Library/Application\ Support/Firefox/Profiles/qcb9xy5k.Selenium/ ]]></ConfigSetting>
     <ConfigSetting id="TRUST_ALL_SSL_CERTIFICATES"><![CDATA[TRUE]]></ConfigSetting>

@@ -61,7 +61,7 @@ public class SiteList {
       }
       in.close( );
     } catch ( IOException e ) {
-      System.out.println( "Could not read " + " because of the IOException " );
+      System.out.println( "Could not read " + " because of an IOException " );
       e.printStackTrace( );
     }
     return sites;
