@@ -79,10 +79,13 @@ public class DriverHandler {
     profile.setPreference( "extensions.firebug.netexport.pageLoadedTimeout", 1500 );
     profile.setPreference( "extensions.firebug.netexport.timeout", 10000 );
     profile.setPreference("extensions.firebug.netexport.viewerURL", "http://www.softwareishard.com/har/viewer-1.1");
+    
     DesiredCapabilities capabilities = new DesiredCapabilities( );
     capabilities.setBrowserName( "firefox" );
     capabilities.setPlatform( org.openqa.selenium.Platform.ANY );
     capabilities.setCapability( FirefoxDriver.PROFILE, profile );
+    
+    new Thread( new FirebugLogWatcher( logDirString ) ).start( );
 
     driver = new FirefoxDriver( capabilities );
     driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -92,6 +95,7 @@ public class DriverHandler {
     return driver;
     
   }
+  
 
   public static WebDriver getDriver( ) {
     if ( driver != null ) {

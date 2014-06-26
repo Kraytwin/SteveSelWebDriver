@@ -45,6 +45,14 @@ public class ClaimsResultsPage {
     }
 
     driver.get( "https://10.0.0.32/admin/" );
+    if( isElementPresent( By.xpath( "//link[@rel=\"icon\" or @rel=\"shortcut icon\"]" ) ) ) {
+      String faviconURL = driver.findElement( By.xpath( "//link[@rel=\"icon\" or @rel=\"shortcut icon\"]" ) ).getAttribute( "href" );
+      driver.get( faviconURL );      
+    } else {
+      //It's going to error anyway so we'll make sure you can see it is favicon.ico
+      driver.get( "https://10.0.0.32/admin/favicon.ico" );
+    }
+    driver.get( "https://10.0.0.32/admin/" );
     driver.manage( ).window( ).maximize( );
     driver.findElement( By.id( "j_username" ) ).clear( );
     driver.findElement( By.id( "j_username" ) ).sendKeys( "user2" );
