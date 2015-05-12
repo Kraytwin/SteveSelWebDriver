@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-  <!--Properties related to running Selenium, not currently used-->
+  <!--Properties related to running Selenium, not currently used, is this even needed now?-->
   <ConfigGroup id="SELENIUM">
     <ConfigSetting id="JAR_LOCATION"><![CDATA[lib/]]></ConfigSetting>
-    <ConfigSetting id="JAR_NAME"><![CDATA[selenium-server-standalone-2.40.0.jar]]></ConfigSetting>
+    <ConfigSetting id="JAR_NAME"><![CDATA[selenium-server-standalone-2.45.0.jar]]></ConfigSetting>
     <ConfigSetting id="FIREFOX_PROFILE"><![CDATA[TRUE]]></ConfigSetting>
     <ConfigSetting id="FIREFOX_PROFILE_LOCATION"><![CDATA[~/Library/Application\ Support/Firefox/Profiles/qcb9xy5k.Selenium/ ]]></ConfigSetting>
     <ConfigSetting id="TRUST_ALL_SSL_CERTIFICATES"><![CDATA[TRUE]]></ConfigSetting>
@@ -12,7 +12,8 @@
   <!--Properties related to locations of files and folders needed by the program-->
   <ConfigGroup id="FILE_SYSTEM">
     <ConfigSetting id="BROWSER_FILE_LOCATION"><![CDATA[conf/browser.csv]]></ConfigSetting>
-    <ConfigSetting id="SITE_FILE_LOCATION"><![CDATA[conf/site.txt]]></ConfigSetting>
+    <ConfigSetting id="SITE_FILE_LOCATION_OS_X"><![CDATA[conf/site.txt]]></ConfigSetting>
+    <ConfigSetting id="SITE_FILE_LOCATION_WIN"><![CDATA[conf\site.txt]]></ConfigSetting>
     <ConfigSetting id="TEST_DIR_LOCATION"><![CDATA[conf/]]></ConfigSetting>
     <ConfigSetting id="TEST_FILE_FORMAT"><![CDATA[xml]]></ConfigSetting>
     <ConfigSetting id="SETTINGS_LOCATION_OS_X"><![CDATA[.seleniumtester]]></ConfigSetting>

@@ -33,20 +33,21 @@ public class DriverHandler {
     
     makeLogDirectory( logDirString );
 
-    //FirefoxProfile profile = new FirefoxProfile( );
     FirefoxProfile profile;
     try {
       if( useSpecificProfile ) {
-        //File firefoxProfile = setupProfileDirectory( config.getProperty( "SELENIUM.FIREFOX_PROFILE_LOCATION" ) );
-        //System.out.println("Using existing profile: " + firefoxProfile.getAbsolutePath( ) );
-        //profile = new FirefoxProfile( firefoxProfile );
         ProfilesIni allProfiles = new ProfilesIni();
         profile = allProfiles.getProfile( "Selenium" );
+        if( profile == null ) {
+        	System.out.println("Specified profile not found, using new profile.");
+            profile = new FirefoxProfile( );
+        } else {
+        	System.out.println("Using profile: " + profile.toString( ) );        	
+        }
         profile.setAcceptUntrustedCertificates( true );
         profile.setAssumeUntrustedCertificateIssuer( false );
-        System.out.println("Using profile: " + profile.toString( ) );
       } else {
-        System.out.println("No existing profile specified so using new profile.");
+        System.out.println("No existing profile specified, using new profile.");
         profile = new FirefoxProfile( );
       }
       

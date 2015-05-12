@@ -2,39 +2,27 @@ package com.hardcodeshit;
 
 import java.io.IOException;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import com.core.Screenshot;
 import com.thoughtworks.selenium.SeleniumException;
 
-public class ClaimsResultsPage {
+public class ClaimsResultsPage extends HardCodeTest {
 
   private WebDriver driver;
   private String name, type, directory;
   private boolean first;
   private int pageNumber = 1;
   private Screenshot sc;
-  private boolean niContributions;
+  private boolean niContributions = false;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer( );
   private boolean logging = true;
 
-  public void setUp( WebDriver driver ) {
-    this.driver = driver;
-  }
 
-  public void testNew( String site, String niContributions ) throws InterruptedException, IOException {
+  public void setNIContributions( String niContributions ){
     this.niContributions = Boolean.valueOf( niContributions ).booleanValue( );
-    if ( this.niContributions ) {
-      System.out.println( "If there are NI Contribution questions these will be answered as 'yes'" );
-    } else {
-      System.out.println( "If there are NI Contribution questions these will be answered as 'no'" );
-    }
-    this.testNew( site );
   }
 
   public void testNew( String site ) throws InterruptedException, IOException {
@@ -150,63 +138,6 @@ public class ClaimsResultsPage {
           System.out.println( " Incident report element does not exist. " );
         }
       }
-    }
-  }
-
-  public void tearDown( ) throws Exception {
-    driver.quit( );
-    String verificationErrorString = verificationErrors.toString( );
-    if ( !"".equals( verificationErrorString ) ) {
-      // fail(verificationErrorString);
-      System.out.println( "error: " + verificationErrorString.toString( ) );
-    }
-  }
-
-  private boolean isElementPresent( By by ) {
-    try {
-      driver.findElement( by );
-      return true;
-    } catch ( NoSuchElementException e ) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent( ) {
-    try {
-      driver.switchTo( ).alert( );
-      return true;
-    } catch ( NoAlertPresentException e ) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText( ) {
-    try {
-      Alert alert = driver.switchTo( ).alert( );
-      String alertText = alert.getText( );
-      if ( acceptNextAlert ) {
-        alert.accept( );
-      } else {
-        alert.dismiss( );
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
-  }
-  
-  private void clickLink( By byIn) {
-    if( isElementPresent( byIn ) ) {
-    driver.findElement( byIn ).click( );
-    }
-    
-    if( logging ) {
-      /*try {
-        Thread.sleep( 10000 );
-      } catch ( InterruptedException e ) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }*/
     }
   }
 }

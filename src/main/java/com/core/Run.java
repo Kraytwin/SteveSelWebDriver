@@ -1,8 +1,12 @@
 package com.core;
 
+import java.io.File;
+
 import org.openqa.selenium.WebDriver;
 
 import com.hardcodeshit.ClaimsResultsPage;
+import com.hardcodeshit.GTMetrixChecker;
+import com.hardcodeshit.HardCodeTest;
 
 
 public class Run {
@@ -14,38 +18,38 @@ public class Run {
     driver = DriverHandler.getDriver( );
     
     //XXX Will need to add in code to deal with this file not existing.
-    /*SiteList sites = new SiteList( new File( config.getProperty( "FILE_SYSTEM.SITE_FILE_LOCATION" ) ) );
+    SiteList sites = new SiteList( new File( config.getOSProperty( "FILE_SYSTEM.SITE_FILE_LOCATION" ) ) );
     SiteHandler sh;
     
     
-    ClaimsResultsPage st = new ClaimsResultsPage( );
+    HardCodeTest st = new GTMetrixChecker( );
     st.setUp(driver);
     try {
       for ( String site : sites.getSiteList( ) ) {
         sh = new SiteHandler( site );
         try {
-          sh.start( );
+          //sh.start( );
           st.testNew( site );
-          sh.stop( );
+          //sh.stop( );
         } catch ( Exception e ) {
           e.printStackTrace( );
           // If anything happens while when it is running through a site we
           // just want it to stop the site and then move to the next one.
-          sh.stop( );
+          //sh.stop( );
         }
       }
     } catch ( Exception e ) {
       e.printStackTrace();
     }
-    DriverHandler.closeDriver( );*/
+    DriverHandler.closeDriver( );
     
-    ClaimsResultsPage st = new ClaimsResultsPage( );
+   /* HardCodeTest st = new GTMetrixChecker( );
     st.setUp(driver);
     try {
       st.testNew( "test" );
     } catch ( Exception e ) {
       e.printStackTrace();
     }
-    DriverHandler.closeDriver( );
+    DriverHandler.closeDriver( );*/
   }
 }
