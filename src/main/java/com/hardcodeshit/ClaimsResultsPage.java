@@ -3,22 +3,16 @@ package com.hardcodeshit;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 import com.core.Screenshot;
 import com.thoughtworks.selenium.SeleniumException;
 
 public class ClaimsResultsPage extends HardCodeTest {
 
-  private WebDriver driver;
   private String name, type, directory;
   private boolean first;
   private int pageNumber = 1;
-  private Screenshot sc;
   private boolean niContributions = false;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer( );
-  private boolean logging = true;
 
 
   public void setNIContributions( String niContributions ){

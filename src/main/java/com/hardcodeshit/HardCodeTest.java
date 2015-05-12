@@ -9,7 +9,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import com.core.Screenshot;
-import com.thoughtworks.selenium.SeleniumException;
 
 
 public abstract class HardCodeTest {
@@ -23,10 +22,6 @@ public abstract class HardCodeTest {
 	 public void setUp( WebDriver driver ) {
 		    this.driver = driver;
 		  }
-	 
-	 public WebDriver getWebDriver() {
-		 return driver;
-	 }
 
 	  public abstract void testNew( String site ) throws InterruptedException, IOException;
 
