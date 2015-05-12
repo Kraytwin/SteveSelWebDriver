@@ -1,0 +1,25 @@
+Things to do on Selenium project:
+
+Basic:
+* Make sure Firefox plugins exist before loading them
+* Sort out Run.java
+* Singleton of the WebDriver? This would also remove it as an object to pass through to the screenshot class
+* * This has already been implemented but I'm going to revert it.  One Driver means concurrent testing is not possible.
+* Add in site builder? 
+* * Shift all processes into a new package
+* * Will these process handlers be similar enough to use an interface?
+* While SiteList will mainly be claims_X it can deal with council websites, need to handle the difference between http:// and without it
+* * Need to investiagte if this has any effect.
+* Sort out SiteGobbler so it works.
+* Find out what firestarter does again
+
+Advanced:
+* Add in multiple broswers again
+* Proper logging rather than System.out
+* * Make sure those three elements currently unused in Screenshot are used again.
+* Implement uses for Firebug, log reporting, recording missing elements, resource loading, etc.
+* * Add in YSlow?
+* Create a GUI
+* * Allow the config to be modified through the GUI
+* Test Script parser so the code deosn't need to be compiled each time a change it made.
+* Run multiple tests at once?
