@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import com.core.Screenshot;
 
@@ -70,6 +71,35 @@ public abstract class HardCodeTest {
 	  protected void clickLink( By byIn) {
 	    if( isElementPresent( byIn ) ) {
 	    driver.findElement( byIn ).click( );
+	    }
+	    
+	    if( logging ) {
+	      /*try {
+	        Thread.sleep( 10000 );
+	      } catch ( InterruptedException e ) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	      }*/
+	    }
+	  }
+	  
+	  protected void selectOption( By byIn, String option) {
+	    if( isElementPresent( byIn ) ) {
+	    new Select( driver.findElement( byIn )).selectByVisibleText(option) ;
+	    }
+	    
+	    if( logging ) {
+	      /*try {
+	        Thread.sleep( 10000 );
+	      } catch ( InterruptedException e ) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	      }*/
+	    }
+	  }
+	  protected void insertText( By byIn, String text) {
+	    if( isElementPresent( byIn ) ) {
+	    driver.findElement( byIn ).sendKeys(text);
 	    }
 	    
 	    if( logging ) {
