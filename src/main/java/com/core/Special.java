@@ -1,5 +1,5 @@
 package com.core;
 
 public enum Special {
-	ASSERT, SCREENSHOT
+	ASSERT, SCREENSHOT, VERIFY
 }

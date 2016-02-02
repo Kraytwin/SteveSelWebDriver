@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AnswerListReader {
 
-	private static ArrayList<Answer> answerList;
+	private static ArrayList<Answer> answerList = new ArrayList<Answer>();
 	
 	public static ArrayList<Answer> readAnswerList( File file ) {
 	    String line;
@@ -36,7 +36,7 @@ public class AnswerListReader {
 		} else if ( answerParts.length == 6 ) {
 			answer = new Answer( FindMethod.valueOf(answerParts[0]),answerParts[1], AnswerType.valueOf(answerParts[2]), answerParts[3], Special.valueOf(answerParts[4]), answerParts[5]);
 		}
-		
+		System.out.println(answer.toString());
 		return answer;
 	}
 	

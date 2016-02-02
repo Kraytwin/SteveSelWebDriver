@@ -1,17 +1,20 @@
-package com.core;
+package com.screenshot;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.hamcrest.core.IsInstanceOf;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.Augmenter;
 
 public class Screenshot {
 
   private String browser, browserName, siteName, directory;
+  private String extension;
   private WebDriver augmentedDriver;
   private int i;
 
@@ -22,7 +25,14 @@ public class Screenshot {
     siteName = site;
     directory = screenshotLocation;
     i = 0;
-    augmentedDriver = new Augmenter().augment(sel);
+    
+    if( sel instanceof HtmlUnitDriver ) {
+    	augmentedDriver = sel;
+    	extension = "zip";
+    } else {
+    	augmentedDriver = new Augmenter().augment(sel);
+    	extension = "png";
+    }
 
   }
 
@@ -36,8 +46,8 @@ public class Screenshot {
       }
         Thread.sleep( 500 );
         System.out.println( directoryFile.getAbsolutePath( ) );
-        File source = ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(source, new File(directoryFile.getAbsolutePath( ) + "//" + siteName + "_" + page + ".png")); 
+        File source = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(source, new File(directoryFile.getAbsolutePath( ) + "//" + siteName + "_" + page + "." + extension)); 
         System.out.println( "Taking fullscreen screenshot in " + directory + " " + siteName + "_" + page );
         Thread.sleep( 500 );
       i++;

@@ -46,7 +46,7 @@ public class Answer {
 		} else if ( this.method.equals(FindMethod.NAME) ) {
 			by = By.name(name);
 		} else if ( this.method.equals(FindMethod.VALUE) ) {
-		    by = By.xpath("//input[@id='TNSA_L']");
+		    by = By.name("TNSA_L");
 		}
 	}
 	
@@ -72,5 +72,13 @@ public class Answer {
 	
 	public String getSpecialValue() {
 		return specialValue;
+	}
+	
+	public String toString() {
+		String answer = method.toString() + ", " + name + ", " + type.toString() + ", " + value;
+		if( hasSpecial() ) {
+			answer += ", " + special.toString() + "' " + specialValue;
+		}
+		return answer;
 	}
 }
