@@ -12,6 +12,7 @@ Basic:
 * * Need to investiagte if this has any effect.
 * Sort out SiteGobbler so it works.
 * Find out what firestarter does again
+* Implement JUnit 4 and Assert.
 
 Advanced:
 * Add in multiple broswers again

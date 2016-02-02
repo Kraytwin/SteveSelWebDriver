@@ -68,7 +68,6 @@ public class AutoAnswerTest extends HardCodeTest {
 			} else if (answer.getSpecialCommand().equals(Special.ASSERT)) {
 				// DO JUNIT testing
 			} else if (answer.getSpecialCommand().equals(Special.VERIFY)) {
-				System.out.println("FINDING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				//Need to do it this horrible way as we were finding hidden labels.  In general we will only want to search inside the questionnaire section anyway
 				String textToCheck = driver.findElement(By.id( "questionnaire" )).getText();
 				System.out.println(textToCheck);
