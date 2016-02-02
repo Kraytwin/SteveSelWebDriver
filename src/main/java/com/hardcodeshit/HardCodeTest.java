@@ -1,17 +1,20 @@
 package com.hardcodeshit;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
-import com.core.Screenshot;
+import com.core.DriverHandler;
+import com.screenshot.Screenshot;
 
 
-public abstract class HardCodeTest {
+public abstract class HardCodeTest  {
 	
 	protected WebDriver driver;
 	protected Screenshot sc;
@@ -41,6 +44,16 @@ public abstract class HardCodeTest {
 	    } catch ( NoSuchElementException e ) {
 	      return false;
 	    }
+	  }
+	  
+	  protected boolean doesElementExist( By by) {
+		  //this.turnOffImplicitWaits();
+		  if(driver.findElements( by ).size() > 0){
+		  //this.turnOnImplicitWaits();
+	      return true;
+		  }
+	      return false;
+	    
 	  }
 
 	  protected boolean isAlertPresent( ) {
@@ -81,5 +94,42 @@ public abstract class HardCodeTest {
 	      }*/
 	    }
 	  }
+	  
+	  protected void selectOption( By byIn, String option) {
+	    if( isElementPresent( byIn ) ) {
+	    new Select( driver.findElement( byIn )).selectByVisibleText(option) ;
+	    }
+	    
+	    if( logging ) {
+	      /*try {
+	        Thread.sleep( 10000 );
+	      } catch ( InterruptedException e ) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	      }*/
+	    }
+	  }
+	  protected void insertText( By byIn, String text) {
+	    if( isElementPresent( byIn ) ) {
+	    driver.findElement( byIn ).sendKeys(text);
+	    }
+	    
+	    if( logging ) {
+	      /*try {
+	        Thread.sleep( 10000 );
+	      } catch ( InterruptedException e ) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	      }*/
+	    }
+	  }
+	  
+	  protected  void turnOffImplicitWaits() {
+		    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		}
+
+		protected void turnOnImplicitWaits() {
+		    driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		}
 	}
 

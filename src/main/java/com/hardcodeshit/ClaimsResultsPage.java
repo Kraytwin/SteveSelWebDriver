@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.By;
 
-import com.core.Screenshot;
+import com.screenshot.Screenshot;
 import com.thoughtworks.selenium.SeleniumException;
 
 public class ClaimsResultsPage extends HardCodeTest {

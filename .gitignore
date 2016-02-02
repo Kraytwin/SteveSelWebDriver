@@ -2,4 +2,6 @@
 target/
 .classpath
 tools/
-MissingResour**
+.settings/**
+MissingResources*
+
