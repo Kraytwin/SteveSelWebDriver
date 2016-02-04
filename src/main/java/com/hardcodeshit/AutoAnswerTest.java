@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
@@ -16,14 +18,22 @@ import com.screenshot.Screenshot;
 import com.thoughtworks.selenium.SeleniumException;
 
 public class AutoAnswerTest extends HardCodeTest {
-
-	@Override
+	private ArrayList<Answer> answerList = AnswerListReader.readAnswerList(new File("C:\\Users\\Steve-O\\Desktop\\answerlist.txt"));
+	private ArrayList<Answer> verifyAnswerList = new ArrayList<Answer>();
+	@Test
 	public void testNew(String site) throws InterruptedException, IOException {
 		sc = new Screenshot("Headless", "", "", "", driver);
 
-		ArrayList<Answer> answerList = AnswerListReader.readAnswerList(new File("C:\\Users\\Steve-O\\Desktop\\answerlist.txt"));
+		
 
-		driver.get("https://hbclaims.teamnetsol.com/servlet/QuestEngine?TNSA_A=claim&TNSA_S=html&TNS_LI=false");
+		driver.get("http://10.0.0.32/admin");
+	    driver.findElement(By.id("j_username")).clear();
+	    driver.findElement(By.id("j_username")).sendKeys("admin");
+	    driver.findElement(By.id("j_password")).clear();
+	    driver.findElement(By.id("j_password")).sendKeys("Password1");
+	    driver.findElement(By.cssSelector("input.q_button")).click();
+	    driver.findElement(By.linkText("Go back to calculator home")).click();
+	    driver.findElement(By.id("becsStartCalculator")).click();
 		while (isElementPresent(By.id("QUESTFORM"))) {
 			for (Answer answer : answerList) {
 				answerQuestions(answer);
@@ -32,6 +42,7 @@ public class AutoAnswerTest extends HardCodeTest {
 				driver.findElement(By.id("btn_next")).click();
 			}
 		}
+
 	}
 
 	private void answerQuestions(Answer answer) {
@@ -68,15 +79,33 @@ public class AutoAnswerTest extends HardCodeTest {
 			} else if (answer.getSpecialCommand().equals(Special.ASSERT)) {
 				// DO JUNIT testing
 			} else if (answer.getSpecialCommand().equals(Special.VERIFY)) {
+				String textToCheck;
 				//Need to do it this horrible way as we were finding hidden labels.  In general we will only want to search inside the questionnaire section anyway
-				String textToCheck = driver.findElement(By.id( "questionnaire" )).getText();
+				if( answer.getFindMethod().equals(FindMethod.VALUE) ) {
+					textToCheck = driver.findElement(By.id( "questionnaire" )).getText();
+				} else {
+					textToCheck = driver.findElement(answer.getByStatement()).getText();
+				}
 				System.out.println(textToCheck);
-				if( textToCheck.contains( answer.getSpecialValue() ) )  {
-					//Set something to pass
+				answer.getLocalisationItem().setSearchedFor();
+				if( textToCheck.contains( answer.getLocalisationItem().getValue() ) )  {
+					answer.getLocalisationItem().setFound();
 				} else {
 					//Set something to fail
 				}
 			}
+		}
+	}
+	
+	@After
+	public void findVerifys() {
+		for (Answer answer : answerList) {
+			if( answer.hasSpecial() && answer.getSpecialValue().equals(Special.VERIFY) ) {
+				verifyAnswerList.add( answer );
+			}
+		}
+		for(Answer answer : verifyAnswerList) {
+			System.out.println(answer.toString());
 		}
 	}
 }
