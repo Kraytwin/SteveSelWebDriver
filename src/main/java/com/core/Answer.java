@@ -9,6 +9,7 @@ public class Answer {
 	private AnswerType type;
 	private Special special;
 	private By by;
+	private LocalisationItem item;
 	
 	public Answer( FindMethod method, String name, AnswerType answerType, String value, Special special, String specialValue ) {
 		this.method = method;
@@ -18,6 +19,9 @@ public class Answer {
 		this.special = special;
 		this.specialValue = specialValue;
 		this.findBy();
+		if( special.equals(Special.VERIFY) ) {
+			item = new LocalisationItem(specialValue);
+		}
 	}
 	
 	public Answer(FindMethod method, String name, AnswerType answerType, String value) {
@@ -74,10 +78,16 @@ public class Answer {
 		return specialValue;
 	}
 	
+	public LocalisationItem getLocalisationItem() {
+		return item;
+	}
+	
 	public String toString() {
-		String answer = method.toString() + ", " + name + ", " + type.toString() + ", " + value;
-		if( hasSpecial() ) {
-			answer += ", " + special.toString() + "' " + specialValue;
+		String answer = "|" + method.toString() + "|" + name + "|" + type.toString() + "|" + value;
+		if( hasSpecial() && special.equals(Special.VERIFY) ) {
+			answer += "|" + special.toString() + "|" + item.toString() + "|";
+		} else if( hasSpecial() ) {
+			answer += "|" + special.toString() + "|" + specialValue + "|";
 		}
 		return answer;
 	}
