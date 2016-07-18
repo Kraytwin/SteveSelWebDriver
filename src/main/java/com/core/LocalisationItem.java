@@ -3,7 +3,7 @@ package com.core;
 public class LocalisationItem {
 
 	private boolean found = false;
-	private boolean searchedFor = false;
+	private boolean matches = false;
 	private String name;
 	private String value;
 	
@@ -27,24 +27,24 @@ public class LocalisationItem {
 	}
 	
 	public String toString() {
-		return name + "|" + value + "|" + itemFound();
+		return name + "|" + value + "|" + itemMatches();
+	}
+	
+	public void setMatches() {
+		matches = true;
 	}
 	
 	public void setFound() {
 		found = true;
 	}
 	
-	public void setSearchedFor() {
-		searchedFor = true;
-	}
-	
-	private String itemFound() {
-		if( found ) {
-			return "Item Found";
-		} else if ( searchedFor ) {
-			return "Item not found";
+	private String itemMatches() {
+		if( matches ) {
+			return "Item Matches";
+		} else if ( found ) {
+			return "Item Does Not Match";
 		} else {
-			return "Item not checked for";
+			return "Item Not Found";
 		}
 	}
 }

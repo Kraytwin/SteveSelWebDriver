@@ -85,7 +85,7 @@ public class Answer {
 	public String toString() {
 		String answer = "|" + method.toString() + "|" + name + "|" + type.toString() + "|" + value;
 		if( hasSpecial() && special.equals(Special.VERIFY) ) {
-			answer += "|" + special.toString() + "|" + item.toString() + "|";
+			answer += "|" + item.toString() + "|";
 		} else if( hasSpecial() ) {
 			answer += "|" + special.toString() + "|" + specialValue + "|";
 		}
