@@ -39,13 +39,13 @@
         </configuration>  
       </plugin>
       <plugin>
-		<artifactId>maven-eclipse-plugin</artifactId>
-		<version>2.5</version>
-		<configuration>
-		  <downloadSources>true</downloadSources>
-		  <downloadJavadocs>true</downloadJavadocs>
-		</configuration>
-	  </plugin>
+	<artifactId>maven-eclipse-plugin</artifactId>
+	<version>2.5</version>
+	<configuration>
+	  <downloadSources>true</downloadSources>
+	  <downloadJavadocs>true</downloadJavadocs>
+	</configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.4</version>
@@ -97,90 +97,68 @@
   </build>  
   
   <dependencies>
-  	<dependency>
-  	  <groupId>org.apache.axis2</groupId>
-  	  <artifactId>axis2-saaj</artifactId>
-  	  <version>1.4.1</version>
-  	</dependency>
-  	<dependency>
-  	  <groupId>com.rexsl</groupId>
-  	  <artifactId>rexsl-w3c</artifactId>
-  	  <version>0.3.7</version>
-  	</dependency>
-  	<dependency>
+    <dependency>
+      <groupId>org.apache.axis2</groupId>
+      <artifactId>axis2-saaj</artifactId>
+      <version>1.7.6</version>
+    </dependency>
+    <!--W3C Validator, not needed right now
+    <dependency>
+      <groupId>com.rexsl</groupId>
+      <artifactId>rexsl-w3c</artifactId>
+      <version>0.3.7</version>
+    </dependency>-->
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>2.50.1</version>
+      <version>3.6.0</version>
     </dependency>
-<dependency>
-	<groupId>org.seleniumhq.selenium</groupId>
-	<artifactId>selenium-htmlunit-driver</artifactId>
-	<version>2.50.1</version>
-</dependency>
-<dependency>
-	<groupId>org.seleniumhq.selenium</groupId>
-	<artifactId>selenium-firefox-driver</artifactId>
-	<version>2.50.1</version>
-</dependency>
-<dependency>
-    <groupId>xml-apis</groupId>
-    <artifactId>xml-apis</artifactId>
-    <version>1.4.01</version>
-</dependency>
-  	<!--Taking this out for now but may add it back in later<dependency>
-	    <groupId>org.yaml</groupId>
-	    <artifactId>snakeyaml</artifactId>
-	    <version>1.10</version>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>htmlunit-driver</artifactId>
+      <version>2.27</version>
+    </dependency> 
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+    </dependency>
+    <!--Taking this out for now but may add it back in later
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+       <version>1.10</version>
     </dependency>-->
-  	<dependency>
-	<groupId>log4j</groupId>
-	<artifactId>log4j</artifactId>
-	<version>1.2.17</version>
- 	  <scope>provided</scope>
-  	  <exclusions>
-		<exclusion>
-		  <groupId>javax.mail</groupId>
-		  <artifactId>mail</artifactId>
-		</exclusion>
-		<exclusion>
-		  <groupId>javax.jms</groupId>
-		  <artifactId>jms</artifactId>
-		</exclusion>
-		<exclusion>
-		  <groupId>com.sun.jdmk</groupId>
-		  <artifactId>jmxtools</artifactId>
-		</exclusion>
-		<exclusion>
-		  <groupId>com.sun.jmx</groupId>
-		  <artifactId>jmxri</artifactId>
-		</exclusion>
-	  </exclusions>
-  	</dependency>
-  	<dependency>
-  	  <groupId>net.sf.opencsv</groupId>
-  	  <artifactId>opencsv</artifactId>
-  	  <version>2.3</version>
-  	</dependency>
-  	<dependency>
-	  <groupId>commons-io</groupId>
-	  <artifactId>commons-io</artifactId>
-	  <version>2.4</version>
+     <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.9.1</version>
+    </dependency> 
+    <dependency>
+      <groupId>net.sf.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>4.5</version>
+      <version>4.5.3</version>
     </dependency>
     <dependency>
-	  <groupId>org.codehaus.jackson</groupId>
-	  <artifactId>jackson-core-asl</artifactId>
-	  <version>1.9.13</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.1</version>
     </dependency>
-    <dependency>
-	<groupId>org.codehaus.jackson</groupId>
-	<artifactId>jackson-mapper-asl</artifactId>
-	<version>1.9.13</version>
-</dependency>
   </dependencies>
   
   <repositories>
@@ -202,7 +180,6 @@
       <id>Sonatype-public</id>
       <name>SnakeYAML repository</name>
       <url>http://oss.sonatype.org/content/groups/public/</url>
-  </repository>
-    
+  </repository>  
   </repositories>
 </project>
