@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.openqa.selenium.By;
 
 import com.screenshot.Screenshot;
-import com.thoughtworks.selenium.SeleniumException;
 
 public class ClaimsResultsPage extends HardCodeTest {
 
@@ -50,14 +49,10 @@ public class ClaimsResultsPage extends HardCodeTest {
   }
 
   private boolean goToNextPage( int i ) {
-    try {
       driver.get( "https://10.0.0.32/incidents?TNSA_A=claim&TNSA_S=html&TNSA_ACTION=incidents.list&TNSA_OFFSET="
           + ( i - 1 ) + "0#results" );
       //If the main element isn't there then there are no incident reports left.
       return isElementPresent( By.xpath("/html/body/div[2]/div[2]/div/table/tbody/tr[2]/td[2]/form/input[5]") );
-    } catch ( SeleniumException e ) {
-      return false;
-    }
   }
 
   private void completeIncidentReports( ) throws InterruptedException, IOException {

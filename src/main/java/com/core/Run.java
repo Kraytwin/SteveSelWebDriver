@@ -1,5 +1,6 @@
 package com.core;
 
+import com.hardcodeshit.TestRunThrough;
 import org.openqa.selenium.WebDriver;
 
 import com.hardcodeshit.AutoAnswerTest;
@@ -18,8 +19,7 @@ public class Run {
     // "FILE_SYSTEM.SITE_FILE_LOCATION" ) ) );
     // SiteHandler sh;
 
-    // HardCodeTest st = new GTMetrixChecker( );
-    HardCodeTest st = new AutoAnswerTest( );
+    HardCodeTest st = new TestRunThrough( );
     st.setUp( driver );
     try {
       // for ( String site : sites.getSiteList( ) ) {
@@ -40,15 +40,5 @@ public class Run {
     }
     DriverHandler.closeDriver( );
 
-    /*
-     * HardCodeTest st = new GTMetrixChecker( );
-     * st.setUp(driver);
-     * try {
-     * st.testNew( "test" );
-     * } catch ( Exception e ) {
-     * e.printStackTrace();
-     * }
-     * DriverHandler.closeDriver( );
-     */
   }
 }

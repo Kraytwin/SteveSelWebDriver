@@ -48,13 +48,9 @@ public abstract class HardCodeTest  {
 	  
 	  protected boolean doesElementExist( By by) {
 		  //this.turnOffImplicitWaits();
-		  if(driver.findElements( by ).size() > 0){
-		  //this.turnOnImplicitWaits();
-	      return true;
-		  }
-	      return false;
-	    
-	  }
+      return driver.findElements(by).size() > 0;
+
+    }
 
 	  protected boolean isAlertPresent( ) {
 	    try {

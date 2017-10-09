@@ -12,14 +12,39 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class DriverHandler {
 
   private static WebDriver driver;
+  private static ConfigSettings config;
+  private static FirefoxProfile profile;
 
   public static WebDriver init( ) {
-    ConfigSettings config = ConfigSettings.getInstance( );
-    // TODO Need to add checks to make sure these files are exist.
-    // File firebug = new File( "firebug-1.13.0a10.xpi" );
-    // File netExport = new File( "netExport-0.9b6.xpi" );
-    // File fireStarter = new File( "fireStarter-0.1a6.xpi" );
-    String logDirString = setupProfileDirectoryString( config.getOSProperty( "FILE_SYSTEM.LOG_LOCATION" ) );
+    config = ConfigSettings.getInstance( );
+    String geckoLocation = config.getOSProperty("FILE_SYSTEM.GECKODRIVER_LOCATION");
+    System.setProperty("webdriver.gecko.driver", geckoLocation);
+    DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+    //Used this when using different browsers
+    // capabilities.setBrowserName( "firefox" );
+    capabilities.setPlatform( org.openqa.selenium.Platform.ANY );
+    if( capabilities.getBrowserName( ).equals( "firefox" ) ) {
+
+      capabilities.setCapability(FirefoxDriver.PROFILE, getFirefoxProfile());
+      capabilities.setCapability("marionette", true);
+
+    }
+    // driver = new ScreenCaptureHtmlUnitDriver();
+    driver = new FirefoxDriver( );
+    driver.manage( ).timeouts( ).implicitlyWait( 1, TimeUnit.SECONDS );
+    // driver.manage( ).timeouts( ).implicitlyWait( 0, TimeUnit.SECONDS );
+    return driver;
+
+  }
+
+  private static FirefoxProfile getFirefoxProfile( ) {
+    if( profile == null ) {
+      setupFirefoxProfile();
+    }
+    return profile;
+  }
+
+  private static void setupFirefoxProfile( ) {
     boolean useSpecificProfile = false;
 
     if ( Boolean.parseBoolean( config.getProperty( "SELENIUM.FIREFOX_PROFILE" ) ) ) {
@@ -29,9 +54,6 @@ public class DriverHandler {
       System.out.println( "Failed to parse boolean" );
     }
 
-    // makeLogDirectory( logDirString );
-
-    FirefoxProfile profile;
     // try {
     if ( useSpecificProfile ) {
       ProfilesIni allProfiles = new ProfilesIni( );
@@ -48,52 +70,7 @@ public class DriverHandler {
       System.out.println( "No existing profile specified, using new profile." );
       profile = new FirefoxProfile( );
     }
-
-    // profile.addExtension( firebug );
-    // profile.addExtension( netExport );
-    // profile.addExtension( fireStarter );
-
-    /*
-     * profile.setPreference( "app.update.enabled", false );
-     * // Setting Firebug preferences
-     * profile.setPreference( "extensions.firebug.currentVersion", "1.13.0a10" );
-     * profile.setPreference( "extensions.firebug.addonBarOpened", true );
-     * profile.setPreference( "extensions.firebug.console.enableSites", true );
-     * profile.setPreference( "extensions.firebug.script.enableSites", true );
-     * profile.setPreference( "extensions.firebug.net.enableSites", true );
-     * profile.setPreference( "extensions.firebug.previousPlacement", 1 );
-     * profile.setPreference( "extensions.firebug.allPagesActivation", "on" );
-     * profile.setPreference( "extensions.firebug.onByDefault", true );
-     * profile.setPreference( "extensions.firebug.defaultPanelName", "net" );
-     * // Setting netExport preferences
-     * profile.setPreference( "extensions.firebug.netexport.alwaysEnableAutoExport", true );
-     * profile.setPreference( "extensions.firebug.netexport.autoExportToFile", true );
-     * profile.setPreference( "extensions.firebug.netexport.Automation", true );
-     * profile.setPreference( "extensions.firebug.netexport.showPreview", true );
-     * profile.setPreference( "extensions.firebug.netexport.saveFiles", true );
-     * profile.setPreference("extensions.firebug.netexport.sendToConfirmation", false);
-     * profile.setPreference( "extensions.firebug.netexport.defaultLogDir", logDirString );
-     * profile.setPreference( "extensions.firebug.netexport.pageLoadedTimeout", 1500 );
-     * profile.setPreference( "extensions.firebug.netexport.timeout", 10000 );
-     * profile.setPreference("extensions.firebug.netexport.viewerURL",
-     * "http://www.softwareishard.com/har/viewer-1.1");
-     */
-
-    DesiredCapabilities capabilities = new DesiredCapabilities( );
-    capabilities.setBrowserName( "firefox" );
-    capabilities.setPlatform( org.openqa.selenium.Platform.ANY );
-    // capabilities.setCapability( FirefoxDriver.PROFILE, profile );
-
-    // new Thread( new FirebugLogWatcher( logDirString ) ).start( );
-    // driver = new ScreenCaptureHtmlUnitDriver();
-    driver = new FirefoxDriver( capabilities );
-    driver.manage( ).timeouts( ).implicitlyWait( 1, TimeUnit.SECONDS );
-    // driver.manage( ).timeouts( ).implicitlyWait( 0, TimeUnit.SECONDS );
-    // } catch ( IOException e ) {
-    // e.printStackTrace( );
-    // }
-    return driver;
-
+    //setupFirebug();
   }
 
   public static WebDriver getDriver( ) {
@@ -109,6 +86,45 @@ public class DriverHandler {
       driver.close( );
     }
   }
+
+//  private static void setupFirebug( ) {
+//     // TODO Need to add checks to make sure these files exist.
+//     File firebug = new File( "firebug2.0.xpi" );
+//     File netExport = new File( "netExport-0.9b6.xpi" );
+//     File fireStarter = new File( "fireStarter-0.1a6.xpi" );
+//     String logDirString = setupProfileDirectoryString( config.getOSProperty( "FILE_SYSTEM.LOG_LOCATION" ) );
+//     makeLogDirectory( logDirString );
+//
+//     profile.addExtension( firebug );
+//     profile.addExtension( netExport );
+//     profile.addExtension( fireStarter );
+//
+//      profile.setPreference( "app.update.enabled", false );
+//      // Setting Firebug preferences
+//      profile.setPreference( "extensions.firebug.currentVersion", "1.13.0a10" );
+//      profile.setPreference( "extensions.firebug.addonBarOpened", true );
+//      profile.setPreference( "extensions.firebug.console.enableSites", true );
+//      profile.setPreference( "extensions.firebug.script.enableSites", true );
+//      profile.setPreference( "extensions.firebug.net.enableSites", true );
+//      profile.setPreference( "extensions.firebug.previousPlacement", 1 );
+//      profile.setPreference( "extensions.firebug.allPagesActivation", "on" );
+//      profile.setPreference( "extensions.firebug.onByDefault", true );
+//      profile.setPreference( "extensions.firebug.defaultPanelName", "net" );
+//      // Setting netExport preferences
+//      profile.setPreference( "extensions.firebug.netexport.alwaysEnableAutoExport", true );
+//      profile.setPreference( "extensions.firebug.netexport.autoExportToFile", true );
+//      profile.setPreference( "extensions.firebug.netexport.Automation", true );
+//      profile.setPreference( "extensions.firebug.netexport.showPreview", true );
+//      profile.setPreference( "extensions.firebug.netexport.saveFiles", true );
+//      profile.setPreference("extensions.firebug.netexport.sendToConfirmation", false);
+//      profile.setPreference( "extensions.firebug.netexport.defaultLogDir", logDirString );
+//      profile.setPreference( "extensions.firebug.netexport.pageLoadedTimeout", 1500 );
+//      profile.setPreference( "extensions.firebug.netexport.timeout", 10000 );
+//      profile.setPreference("extensions.firebug.netexport.viewerURL",
+//      "http://www.softwareishard.com/har/viewer-1.1");
+//
+//     new Thread( new FirebugLogWatcher( logDirString ) ).start( );
+//  }
 
   private static void makeLogDirectory( String logDirString ) {
     File logDir = setupProfileDirectory( logDirString );

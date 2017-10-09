@@ -22,6 +22,8 @@
     <ConfigSetting id="SPECIAL_CONFIG_LOCATION_WIN"><![CDATA[My Documents\SeleniumTester\Special]]></ConfigSetting>
 	<ConfigSetting id="LOG_LOCATION_OS_X"><![CDATA[logs/NetExportLog/]]></ConfigSetting>
     <ConfigSetting id="LOG_LOCATION_WIN"><![CDATA[logs\NetExportLog\]]></ConfigSetting>
+    <ConfigSetting id="GECKODRIVER_LOCATION_OS_X"><![CDATA[~/Desktop/geckodriver.exe]]></ConfigSetting>
+    <ConfigSetting id="GECKODRIVER_LOCATION_WIN"><![CDATA[C:\Users\Steve-O\Desktop\geckodriver.exe]]></ConfigSetting>
   </ConfigGroup>
   <!--General configuration properties-->
   <ConfigGroup id="GENERAL">

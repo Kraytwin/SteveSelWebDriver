@@ -4,12 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -23,7 +20,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.internal.Base64Encoder;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -75,7 +71,7 @@ public class ScreenCaptureHtmlUnitDriver extends HtmlUnitDriver implements Takes
         } catch (Exception e) {
         }
         if(target.equals(OutputType.BASE64)){
-            return target.convertFromBase64Png(new Base64Encoder().encode(archive));
+            return target.convertFromBase64Png(new String(Base64.getEncoder().encode(archive)));
         }
         if(target.equals(OutputType.BYTES)){
             return (X) archive;

@@ -5,6 +5,10 @@
   <packaging>jar</packaging>
   <version>0.0.1</version>
   <name>SeleniumWebDriver</name>
+  <properties>
+    <jacksonVersion>2.9.1</jacksonVersion>
+    <log4jVersion>2.9.1</log4jVersion>
+  </properties>
   
   <build>
     <defaultGoal>package</defaultGoal>
@@ -34,9 +38,20 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.4</version>
         <configuration> 
-          <source>1.6</source> 
-          <target>1.6</target> 
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>  
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>1.0.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
 	<artifactId>maven-eclipse-plugin</artifactId>
@@ -66,13 +81,14 @@
               <mainClass>com.core.Run</mainClass>
             </manifest>
           </archive>
+          <!--Move this to the correct place later
           <tasks>
             <copy todir="target/lib" overwrite="true">
               <fileset dir="tools/">
                 <include name="*.xpi"/>
               </fileset>
             </copy>
-          </tasks>
+          </tasks>-->
         </configuration>
       </plugin>
       <plugin>
@@ -111,7 +127,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>3.6.0</version>
+      <version>3.5.3</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -132,12 +148,12 @@
      <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.9.1</version>
+      <version>${log4jVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.9.1</version>
+      <version>${log4jVersion}</version>
     </dependency> 
     <dependency>
       <groupId>net.sf.opencsv</groupId>
@@ -155,9 +171,34 @@
       <version>4.5.3</version>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.9.1</version>
+      <version>${jacksonVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson</groupId>
+      <artifactId>jackson-parent</artifactId>
+      <version>${jacksonVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jacksonVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-javamail_1.4_spec</artifactId>
+      <version>1.2</version>
     </dependency>
   </dependencies>
   
@@ -176,10 +217,5 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-    <repository>
-      <id>Sonatype-public</id>
-      <name>SnakeYAML repository</name>
-      <url>http://oss.sonatype.org/content/groups/public/</url>
-  </repository>  
   </repositories>
 </project>

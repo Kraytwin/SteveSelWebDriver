@@ -1,5 +1,7 @@
 package com.core;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,9 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+
 
 
 public class JSONReader {
@@ -46,9 +46,6 @@ public class JSONReader {
         parseEntries( entriesList );
       }
     } catch ( JsonParseException e ) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch ( JsonMappingException e ) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     } catch ( IOException e ) {

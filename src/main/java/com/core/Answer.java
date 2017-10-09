@@ -63,11 +63,7 @@ public class Answer {
 	}
 	
 	public boolean hasSpecial( ) {
-		if(special != null) {
-			return true;
-		} else {
-			return false;
-		}
+    return special != null;
 	}
 	
 	public Special getSpecialCommand() {
