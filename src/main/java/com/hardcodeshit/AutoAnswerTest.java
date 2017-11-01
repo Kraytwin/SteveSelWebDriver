@@ -51,17 +51,20 @@ public class AutoAnswerTest extends HardCodeTest {
     if ( answer.getFindMethod( ).equals( FindMethod.ID ) || answer.getFindMethod( ).equals( FindMethod.NAME ) ) {
       AnswerType answerType = answer.getAnswerType( );
       if ( doesElementExist( answer.getByStatement( ) ) ) {
-        System.out.println( answer.getName( ) + " was found" );
         elementFound = true;
         // First we want to select the object
-        if ( answerType.equals( AnswerType.CHECKBOX ) || answerType.equals( AnswerType.RADIO ) ) {
-          driver.findElement( answer.getByStatement( ) ).click( );
-        } else if ( answerType.equals( AnswerType.SELECT ) ) {
-          new Select( driver.findElement( answer.getByStatement( ) ) ).selectByVisibleText( answer.getValue( ) );
-        } else if ( answerType.equals( AnswerType.TEXT ) ) {
-          driver.findElement( answer.getByStatement( ) ).sendKeys( answer.getValue( ) );
-        } else { // answer.getAnswerType().equals(AnswerType.NONE)
-
+        switch ( answerType ) {
+          case CHECKBOX:
+          case RADIO:
+            driver.findElement( answer.getByStatement( ) ).click( );
+            break;
+          case SELECT:
+            new Select( driver.findElement( answer.getByStatement( ) ) ).selectByVisibleText( answer.getValue( ) );
+            break;
+          case TEXT:
+            driver.findElement( answer.getByStatement( ) ).sendKeys( answer.getValue( ) );
+          default: // NONE
+            break;
         }
       }
     } else if ( answer.getFindMethod( ).equals( FindMethod.VALUE ) ) {
@@ -76,24 +79,28 @@ public class AutoAnswerTest extends HardCodeTest {
     }
 
     if ( elementFound && answer.hasSpecial( ) ) {
-      if ( answer.getSpecialCommand( ).equals( Special.SCREENSHOT ) ) {
-        // sc.captureScreenshot(answer.getSpecialValue());
-      } else if ( answer.getSpecialCommand( ).equals( Special.ASSERT ) ) {
-        // DO JUNIT testing
-      } else if ( answer.getSpecialCommand( ).equals( Special.VERIFY ) ) {
-        String textToCheck;
-        // Need to do it this horrible way as we were finding hidden labels. In general we will only
-        // want to search inside the questionnaire section anyway
-        if ( answer.getFindMethod( ).equals( FindMethod.VALUE ) ) {
-          textToCheck = driver.findElement( By.id( "questionnaire" ) ).getText( );
-        } else {
-          textToCheck = driver.findElement( answer.getByStatement( ) ).getText( );
-        }
-        System.out.println( textToCheck );
-        answer.getLocalisationItem( ).setFound( );
-        if ( textToCheck.contains( answer.getLocalisationItem( ).getValue( ) ) ) {
-          answer.getLocalisationItem( ).setMatches( );
-        }
+      switch ( answer.getSpecialCommand( ) ) {
+        case SCREENSHOT:
+          sc.captureScreenshot(answer.getSpecialValue());
+          break;
+        case ASSERT:
+          // DO JUNIT testing
+          break;
+        case VERIFY:
+          String textToCheck;
+          // Need to do it this horrible way as we were finding hidden labels. In general we will only
+          // want to search inside the questionnaire section anyway
+          if ( answer.getFindMethod( ).equals( FindMethod.VALUE ) ) {
+            textToCheck = driver.findElement( By.id( "questionnaire" ) ).getText( );
+          } else {
+            textToCheck = driver.findElement( answer.getByStatement( ) ).getText( );
+          }
+          System.out.println( textToCheck );
+          answer.getLocalisationItem( ).setFound( );
+          if ( textToCheck.contains( answer.getLocalisationItem( ).getValue( ) ) ) {
+            answer.getLocalisationItem( ).setMatches( );
+          }
+          break;
       }
     }
   }

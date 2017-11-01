@@ -17,6 +17,7 @@ public class DriverHandler {
 
   public static WebDriver init( ) {
     config = ConfigSettings.getInstance( );
+    System.setProperty("webdriver.firefox.bin", "C:\\Users\\Steve-O\\AppData\\Local\\Mozilla Firefox\\firefox.exe");
     String geckoLocation = config.getOSProperty("FILE_SYSTEM.GECKODRIVER_LOCATION");
     System.setProperty("webdriver.gecko.driver", geckoLocation);
     DesiredCapabilities capabilities = DesiredCapabilities.firefox();
