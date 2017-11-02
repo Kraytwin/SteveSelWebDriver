@@ -48,34 +48,37 @@ public class AutoAnswerTest extends HardCodeTest {
 
   private void answerQuestions( Answer answer ) {
     boolean elementFound = false;
-    if ( answer.getFindMethod( ).equals( FindMethod.ID ) || answer.getFindMethod( ).equals( FindMethod.NAME ) ) {
-      AnswerType answerType = answer.getAnswerType( );
-      if ( doesElementExist( answer.getByStatement( ) ) ) {
-        elementFound = true;
-        // First we want to select the object
-        switch ( answerType ) {
-          case CHECKBOX:
-          case RADIO:
-            driver.findElement( answer.getByStatement( ) ).click( );
-            break;
-          case SELECT:
-            new Select( driver.findElement( answer.getByStatement( ) ) ).selectByVisibleText( answer.getValue( ) );
-            break;
-          case TEXT:
-            driver.findElement( answer.getByStatement( ) ).sendKeys( answer.getValue( ) );
-          default: // NONE
-            break;
-        }
-      }
-    } else if ( answer.getFindMethod( ).equals( FindMethod.VALUE ) ) {
-      // Always going to have AnswerType.NONE
-      if ( doesElementExist( answer.getByStatement( ) ) ) {
-
-        if ( driver.findElement( answer.getByStatement( ) ).getAttribute( "value" ).equals( answer.getName( ) ) ) {
-          System.out.println( answer.getName( ) + " was found" );
+    switch ( answer.getFindMethod( ) ){
+      case ID:
+      case NAME:
+        AnswerType answerType = answer.getAnswerType( );
+        if ( doesElementExist( answer.getByStatement( ) ) ) {
           elementFound = true;
+          // First we want to select the object
+          switch ( answerType ) {
+            case CHECKBOX:
+            case RADIO:
+              driver.findElement( answer.getByStatement( ) ).click( );
+              break;
+            case SELECT:
+              new Select( driver.findElement( answer.getByStatement( ) ) ).selectByVisibleText( answer.getValue( ) );
+              break;
+            case TEXT:
+              driver.findElement( answer.getByStatement( ) ).sendKeys( answer.getValue( ) );
+            default: // NONE
+              break;
+          }
         }
-      }
+        break;
+      case VALUE:
+        // Always going to have AnswerType.NONE
+        if ( doesElementExist( answer.getByStatement( ) ) ) {
+          if ( driver.findElement( answer.getByStatement( ) ).getAttribute( "value" ).equals( answer.getName( ) ) ) {
+            System.out.println( answer.getName( ) + " was found" );
+            elementFound = true;
+          }
+        }
+        break;
     }
 
     if ( elementFound && answer.hasSpecial( ) ) {

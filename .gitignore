@@ -4,4 +4,6 @@ target/
 tools/
 .settings/**
 MissingResources*
-
+.idea
+.idea/compiler.xml
+SeleniumWebDriver.iml
